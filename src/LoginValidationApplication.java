@@ -7,9 +7,7 @@ import java.util.Scanner;
 public class LoginValidationApplication {
     static User[] userArray = new User[20];
     static User currentUserObj;
-    static int userIndex;
-    static User anotherUserObj;
-    static int anotherUserIndex;
+
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -52,14 +50,12 @@ public class LoginValidationApplication {
 
                         System.out.println("Please type in your new username:");
                         String newEmail = scanner.nextLine();
-                        userArray[userIndex].setLoginEmail(newEmail);
                         currentUserObj.setLoginEmail(newEmail);
                         System.out.println("Username Changed!!");
                     } else if (updateOptions.equals("2")) {
 
                         System.out.println("Please type in your new password:");
                         String newPwd = scanner.nextLine();
-                        userArray[userIndex].setLoginPassword(newPwd);
                         currentUserObj.setLoginPassword(newPwd);
                         System.out.println("Password Changed!!");
 
@@ -67,7 +63,6 @@ public class LoginValidationApplication {
 
                         System.out.println("Please type in your new name:");
                         String newUsername = scanner.nextLine();
-                        userArray[userIndex].setLoginUsername(newUsername);
                         currentUserObj.setLoginUsername(newUsername);
                         currentUserObj.welcomeUser();
 
@@ -77,48 +72,8 @@ public class LoginValidationApplication {
                         System.out.println("Which user would you like to login as? (Type in a valid username)");
                         String loginAsAnotherUser = scanner.nextLine();
 
-                         anotherUserObj = userValidation.getAnotherUserInfo(loginAsAnotherUser);
-                         anotherUserObj.welcomeUser();
-                        anotherUserObj.displayUserUpdateOptions();
-                        //Same cycle as above
-                        String anotherUserUpdateOptions = scanner.nextLine();
-
-
-
-                        while (!anotherUserUpdateOptions.equals("4")) {
-
-                            if (anotherUserUpdateOptions.equals("1")) {
-
-                                System.out.println("Please type in your new username:");
-                                String newEmail = scanner.nextLine();
-                                userArray[anotherUserIndex].setLoginEmail(newEmail);
-                                anotherUserObj.setLoginUsername(newEmail);
-                                System.out.println("Username Changed!!");
-                            } else if (anotherUserUpdateOptions.equals("2")) {
-
-                                System.out.println("Please type in your new password:");
-                                String newPwd = scanner.nextLine();
-                                userArray[anotherUserIndex].setLoginPassword(newPwd);
-                                anotherUserObj.setLoginPassword(newPwd);
-                                System.out.println("Password Changed!!");
-
-                            } else if (anotherUserUpdateOptions.equals("3")) {
-
-                                System.out.println("Please type in your new name:");
-                                String newUsername = scanner.nextLine();
-                                userArray[anotherUserIndex].setLoginUsername(newUsername);
-                                anotherUserObj.setLoginUsername(newUsername);
-                                anotherUserObj.welcomeUser();
-
-                            }
-                            anotherUserObj.displayUserUpdateOptions();
-                            anotherUserUpdateOptions = scanner.nextLine();
-                        }
-
-
-
-
-
+                         currentUserObj = userValidation.getAnotherUserInfo(loginAsAnotherUser);
+                         currentUserObj.welcomeUser();
 
                         }
 
@@ -153,7 +108,6 @@ public class LoginValidationApplication {
         for (int i = 0; i < userArray.length; i++) {
             if (userArray[i] != null) {
                 User user = userArray[i];
-                userIndex = i;
                 if (user.getLoginEmail().equalsIgnoreCase(emailId) && user.getLoginPassword().equals(password)) {
                     currentUserObj = user;
                     isValid = true;
@@ -177,10 +131,11 @@ public class LoginValidationApplication {
 
     private User getAnotherUserInfo(String userEmail){
 
+        User anotherUserObj = null;
+
         for (int i = 0; i < userArray.length; i++) {
             if (userArray[i] != null) {
                 User user = userArray[i];
-                anotherUserIndex = i;
                 if (user.getLoginEmail().equalsIgnoreCase(userEmail)) {
                     anotherUserObj = user;
                     break;
